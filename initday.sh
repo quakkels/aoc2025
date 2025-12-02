@@ -42,11 +42,11 @@ class Program
 		Solve(input);
 	}
 
-static void Solve(List<string> input)
-{
-	foreach ( var line in input) {
-		Console.WriteLine($"({line.Count()}) {line}");
+	static void Solve(List<string> input)
+	{
+		foreach ( var line in input) {
+			Console.WriteLine($"({line.Count()}) {line}");
+		}
 	}
-}
 }
 EOF
