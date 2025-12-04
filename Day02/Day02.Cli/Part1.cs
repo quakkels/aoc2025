@@ -2,9 +2,9 @@
 
 public class Part1
 {
-	public int Solve(List<(int start, int end)> pairs)
+	public long Solve(List<(long start, long end)> pairs)
 	{
-		var badIds = new List<int>();
+		var badIds = new List<long>();
 		foreach (var pair in pairs)
 		{
 			badIds.AddRange(FindBadIds(pair.start, pair.end));
@@ -13,9 +13,9 @@ public class Part1
 		return sum;
 	}
 
-	public List<int> FindBadIds(int start, int end)
+	public List<long> FindBadIds(long start, long end)
 	{
-		var result = new List<int>();
+		var result = new List<long>();
 
 		var current = start;
 		while (current <= end)
@@ -24,6 +24,7 @@ public class Part1
 			if (isBad)
 			{
 				result.Add(current);
+				Console.WriteLine(current);
 			}
 
 			current++;
@@ -33,7 +34,7 @@ public class Part1
 
 	}
 
-	public bool IsBadId(int id)
+	public bool IsBadId(long id)
 	{
 		string token = id.ToString();
 		

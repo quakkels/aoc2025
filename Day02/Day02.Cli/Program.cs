@@ -12,11 +12,11 @@ class Program
 	static void SolvePart1(List<string> input)
 	{
 		var idRanges = input[0].Split(",");
-		var pairs = new List<(int start, int end)>();
+		var pairs = new List<(long start, long end)>();
 		foreach(var idRange in idRanges)
 		{
 			var parts = idRange.Split("-");
-			pairs.Add((int.Parse(parts[0]), int.Parse(parts[1])));
+			pairs.Add((long.Parse(parts[0]), long.Parse(parts[1])));
 		}
 
 		var part1 = new Part1();
