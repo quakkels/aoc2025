@@ -6,13 +6,22 @@ class Program
 	{
 		var lines = File.ReadAllLines(args[0]);
 		var input = lines.ToList();
-		Solve(input);
+		SolvePart1(input);
 	}
 
-	static void Solve(List<string> input)
+	static void SolvePart1(List<string> input)
 	{
-		foreach ( var line in input) {
-			Console.WriteLine($"({line.Count()}) {line}");
+		var idRanges = input[0].Split(",");
+		var pairs = new List<(int start, int end)>();
+		foreach(var idRange in idRanges)
+		{
+			var parts = idRange.Split("-");
+			pairs.Add((int.Parse(parts[0]), int.Parse(parts[1])));
 		}
+
+		var part1 = new Part1();
+		var answer = part1.Solve(pairs);
+		Console.WriteLine($"Part1: {answer}");
 	}
 }
+
