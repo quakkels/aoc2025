@@ -1,4 +1,6 @@
-﻿namespace Day02.Cli;
+﻿using System.Text;
+
+namespace Day02.Cli;
 
 public class Part2
 {
@@ -37,18 +39,48 @@ public class Part2
 	public bool IsBadId(long id)
 	{
 		string token = id.ToString();
-		
-		if (token.Length % 2 != 0)
-		{
-			return false;
-		}
-
+		var isBad = false;
 		var halfIndex = (token.Length / 2);
 
-		var first = token.Substring(0, halfIndex);
-		var second = token.Substring(halfIndex);
+		var pattern = new StringBuilder();
+		Console.WriteLine("=============");
+		for (var i = 0; i < token.Length; i++)
+		{
+			if (i == 0)
+			{
+				pattern.Append(token[i]).ToString();
+				continue;
+			}
 
-		return first == second;
+			Console.WriteLine($"i={i}  pattern.Length={pattern.Length}  pattern='{pattern}'");
+
+			if (pattern.Length + i > token.Length)
+			{
+				isBad = false;
+				break;
+			}
+
+			if (pattern.ToString() == token.Substring(i, pattern.Length))
+			{
+				Console.WriteLine(
+						$"matching substring: pattern {pattern}, "
+						+ $"substring {token.Substring(i, pattern.Length)}");
+				isBad = true;
+				i += pattern.Length -1;
+			}
+			else
+			{
+				isBad = false;
+				pattern.Append(token[i]);
+				Console.WriteLine("NOT BAD");
+			}
+
+			Console.WriteLine(token[i]);
+		}
+
+		Console.WriteLine($"isbad: {isBad}");
+
+		return isBad;
 	}
 }
 

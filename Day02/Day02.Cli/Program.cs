@@ -6,10 +6,10 @@ class Program
 	{
 		var lines = File.ReadAllLines(args[0]);
 		var input = lines.ToList();
-		SolvePart1(input);
+		SolvePuzzle(input);
 	}
 
-	static void SolvePart1(List<string> input)
+	static void SolvePuzzle(List<string> input)
 	{
 		var idRanges = input[0].Split(",");
 		var pairs = new List<(long start, long end)>();
@@ -22,6 +22,10 @@ class Program
 		var part1 = new Part1();
 		var answer = part1.Solve(pairs);
 		Console.WriteLine($"Part1: {answer}");
+
+		var part2 = new Part2();
+		var answer2 = part2.Solve(pairs);
+		Console.WriteLine($"Part2: {answer2}");
 	}
 }
 

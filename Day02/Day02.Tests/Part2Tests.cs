@@ -2,20 +2,21 @@ using Day02.Cli;
 
 namespace Day02.Tests;
 
-public class Part1Tests
+public class Part2Tests
 {
-	private readonly Part1 _target;
+	private readonly Part2 _target;
 
-	public Part1Tests()
+	public Part2Tests()
 	{
-		_target = new Part1();
+		_target = new Part2();
 	}
 
 	[Theory]
+	[InlineData(12, false)]
 	[InlineData(11, true)]
-	[InlineData(22, true)]
-	[InlineData(111, false)]
-	[InlineData(123123123, false)]
+	[InlineData(111, true)]
+	[InlineData(123123, true)]
+	[InlineData(1112, false)]
 	public void IsBadIdWillReturnAnswer(int id, bool expectation)
 	{
 		// act
@@ -32,6 +33,8 @@ public class Part1Tests
 	{
 		// act
 		var result = _target.FindBadIds(start, end);
+		Console.WriteLine($"result: {string.Join(", ", result)}");
+		Console.WriteLine($"expected: {string.Join(", ", expected)}");
 
 		// assert
 		Assert.Equivalent(expected, result);
