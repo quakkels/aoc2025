@@ -1,6 +1,6 @@
 ﻿namespace Day02.Cli;
 
-public class Part1
+public class Part2
 {
 	public long Solve(List<(long start, long end)> pairs)
 	{
@@ -24,6 +24,7 @@ public class Part1
 			if (isBad)
 			{
 				result.Add(current);
+				Console.WriteLine(current);
 			}
 
 			current++;

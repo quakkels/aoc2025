@@ -26,12 +26,14 @@ public class Part1Tests
 	}
 
 	[Theory]
-	[InlineData(11, 22, new [] {11, 22})]
-	[InlineData(95, 115, new [] {99})]
-	public void FindBadIdsGiveListOfBadIds(int start, int end, int[] expected)
+	[InlineData(11, 22, new long[] {11, 22})]
+	[InlineData(95, 115, new long[] {99})]
+	public void FindBadIdsGiveListOfBadIds(long start, long end, long[] expected)
 	{
 		// act
 		var result = _target.FindBadIds(start, end);
+		Console.WriteLine($"result: {string.Join(", ", result)}");
+		Console.WriteLine($"expected: {string.Join(", ", expected)}");
 
 		// assert
 		Assert.Equivalent(expected, result);
