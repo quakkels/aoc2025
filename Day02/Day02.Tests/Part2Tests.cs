@@ -20,6 +20,7 @@ public class Part2Tests
 	[InlineData(112, false)]
 	[InlineData(111, true)]
 	[InlineData(121212, true)]
+	[InlineData(12121212121212, true)]
 	public void IsBadIdWillReturnAnswer(long id, bool expectation)
 	{
 		// act
@@ -31,9 +32,9 @@ public class Part2Tests
 
 	///*
 	[Theory]
-	[InlineData(11, 22, new long[] {11, 22})]
-	[InlineData(95, 115, new long[] {99})]
-	public void FindBadIdsGiveListOfBadIds(long start, long end, long[] expected)
+	[InlineData(11, 22, new ulong[] {11, 22})]
+	[InlineData(95, 115, new ulong[] {99})]
+	public void FindBadIdsGiveListOfBadIds(long start, long end, ulong[] expected)
 	{
 		// act
 		var result = _target.FindBadIds(start, end);
@@ -47,7 +48,7 @@ public class Part2Tests
 	[InlineData(95, 115, 210)]
 	[InlineData(998, 1012, 2009)]
 	[InlineData(1188511880, 1188511890, 1188511885)]
-	public void SolveReturnsCorrectSumOfBadIds(long start, long end, long expectedSum)
+	public void SolveReturnsCorrectSumOfBadIds(long start, long end, ulong expectedSum)
 	{
 		// arrange
 

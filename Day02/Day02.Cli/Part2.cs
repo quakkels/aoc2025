@@ -4,15 +4,15 @@ namespace Day02.Cli;
 
 public class Part2
 {
-	public long Solve(List<(long start, long end)> pairs)
+	public ulong Solve(List<(long start, long end)> pairs)
 	{
-		var badIds = new List<long>();
+		var badIds = new List<ulong>();
 		foreach (var pair in pairs)
 		{
 			badIds.AddRange(FindBadIds(pair.start, pair.end));
 		}
 
-		var sum = badIds.Sum();
+		ulong sum = badIds.Aggregate((a, b) => a + b);
 
 		Console.WriteLine("==========================================");
 		Console.WriteLine(string.Join(", ", badIds));
@@ -22,9 +22,9 @@ public class Part2
 		return sum;
 	}
 
-	public List<long> FindBadIds(long start, long end)
+	public List<ulong> FindBadIds(long start, long end)
 	{
-		var result = new List<long>();
+		var result = new List<ulong>();
 
 		var current = start;
 		while (current <= end)
@@ -32,7 +32,7 @@ public class Part2
 			var isBad = IsBadId(current);
 			if (isBad)
 			{
-				result.Add(current);
+				result.Add((ulong)current);
 			}
 
 			current++;
@@ -60,8 +60,6 @@ public class Part2
 				continue;
 			}
 
-			Console.WriteLine($"i={i}  pattern.Length={pattern.Length}  pattern='{pattern}'");
-
 			if (pattern.Length + i > token.Length)
 			{
 				isBad = false;
@@ -69,10 +67,6 @@ public class Part2
 			}
 			else if (pattern.ToString() == token.Substring(i, pattern.Length))
 			{
-				/*Console.WriteLine(
-						$"matching substring: pattern {pattern}, "
-						+ $"substring {token.Substring(i, pattern.Length)}");*/
-
 				isBad = true;
 
 				var isPatternFit = (token.Length % pattern.Length) == 0;
@@ -93,8 +87,6 @@ public class Part2
 						}
 					}
 
-					Console.WriteLine($">>> pattern: {pattern}, token: {token}, isbad: {isBad}");
-
 					if (isBad)
 					{
 						break;
@@ -109,14 +101,9 @@ public class Part2
 			}
 
 			pattern.Append(token[i]);
-
-			if (isBad)
-			{
-				Console.WriteLine($"bad id: {token}");
-			}
-			else Console.WriteLine($"NOT BAD: {token}");
 		}
 
+		Console.WriteLine($"id: {token}, isBad: {isBad}");
 		return isBad;
 	}
 }
