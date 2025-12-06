@@ -11,7 +11,14 @@ public class Part2
 		{
 			badIds.AddRange(FindBadIds(pair.start, pair.end));
 		}
+
 		var sum = badIds.Sum();
+
+		Console.WriteLine("==========================================");
+		Console.WriteLine(string.Join(", ", badIds));
+		Console.WriteLine($"Bad Sum: {sum}");
+		Console.WriteLine("==========================================");
+
 		return sum;
 	}
 
@@ -26,7 +33,6 @@ public class Part2
 			if (isBad)
 			{
 				result.Add(current);
-				Console.WriteLine(current);
 			}
 
 			current++;
@@ -42,8 +48,10 @@ public class Part2
 		var isBad = false;
 		var halfIndex = (token.Length / 2);
 
+		Console.WriteLine("--------------------------------------------");
+		Console.WriteLine($"Testing id: {id}");
+
 		var pattern = new StringBuilder();
-		Console.WriteLine("=============");
 		for (var i = 0; i < token.Length; i++)
 		{
 			if (i == 0)
@@ -59,26 +67,55 @@ public class Part2
 				isBad = false;
 				break;
 			}
-
-			if (pattern.ToString() == token.Substring(i, pattern.Length))
+			else if (pattern.ToString() == token.Substring(i, pattern.Length))
 			{
-				Console.WriteLine(
+				/*Console.WriteLine(
 						$"matching substring: pattern {pattern}, "
-						+ $"substring {token.Substring(i, pattern.Length)}");
+						+ $"substring {token.Substring(i, pattern.Length)}");*/
+
 				isBad = true;
+
+				var isPatternFit = (token.Length % pattern.Length) == 0;
+				if (isPatternFit)
+				{
+					var repeatCount = token.Length / pattern.Length;
+					for (var j = 0; j < repeatCount; j++)
+					{
+						var substringStart = j * pattern.Length;
+						if (substringStart == token.Length)
+						{
+							continue;
+						}
+
+						if (pattern.ToString() != token.Substring(substringStart, pattern.Length))
+						{
+							isBad = false;
+						}
+					}
+
+					Console.WriteLine($">>> pattern: {pattern}, token: {token}, isbad: {isBad}");
+
+					if (isBad)
+					{
+						break;
+					}
+				}
+
 				i += pattern.Length -1;
 			}
 			else
 			{
 				isBad = false;
-				pattern.Append(token[i]);
-				Console.WriteLine("NOT BAD");
 			}
 
-			Console.WriteLine(token[i]);
-		}
+			pattern.Append(token[i]);
 
-		Console.WriteLine($"isbad: {isBad}");
+			if (isBad)
+			{
+				Console.WriteLine($"bad id: {token}");
+			}
+			else Console.WriteLine($"NOT BAD: {token}");
+		}
 
 		return isBad;
 	}

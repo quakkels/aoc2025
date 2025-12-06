@@ -14,10 +14,13 @@ public class Part2Tests
 	[Theory]
 	[InlineData(12, false)]
 	[InlineData(11, true)]
-	[InlineData(111, true)]
+	[InlineData(1188511885, true)]
 	[InlineData(123123, true)]
 	[InlineData(1112, false)]
-	public void IsBadIdWillReturnAnswer(int id, bool expectation)
+	[InlineData(112, false)]
+	[InlineData(111, true)]
+	[InlineData(121212, true)]
+	public void IsBadIdWillReturnAnswer(long id, bool expectation)
 	{
 		// act
 		var result = _target.IsBadId(id);
@@ -26,6 +29,7 @@ public class Part2Tests
 		Assert.Equal(expectation, result);
 	}
 
+	///*
 	[Theory]
 	[InlineData(11, 22, new long[] {11, 22})]
 	[InlineData(95, 115, new long[] {99})]
@@ -33,24 +37,25 @@ public class Part2Tests
 	{
 		// act
 		var result = _target.FindBadIds(start, end);
-		Console.WriteLine($"result: {string.Join(", ", result)}");
-		Console.WriteLine($"expected: {string.Join(", ", expected)}");
 
 		// assert
 		Assert.Equivalent(expected, result);
 	}
 
-	[Fact]
-	public void WillSolveOneRange()
+	[Theory]
+	[InlineData(11, 22, 33)]
+	[InlineData(95, 115, 210)]
+	[InlineData(998, 1012, 2009)]
+	[InlineData(1188511880, 1188511890, 1188511885)]
+	public void SolveReturnsCorrectSumOfBadIds(long start, long end, long expectedSum)
 	{
 		// arrange
-		var start = 11;
-		var end = 22;
 
 		// act
 		var result = _target.Solve([(start, end)]);
 
 		// assert
-		Assert.Equal(33, result);
+		Assert.Equal(expectedSum, result);
 	}
+	//*/
 }
