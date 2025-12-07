@@ -44,6 +44,22 @@ public class Part2
 
 	public bool IsBadId(long id)
 	{
+		string s = id.ToString();
+		if (s.Length < 2) return false;
+
+		for (int len = 1; len <= s.Length / 2; len++)
+		{
+			if (s.Length % len != 0) continue;
+
+			string pattern = s.Substring(0, len);
+			if (Enumerable.Repeat(pattern, s.Length / len).Aggregate(string.Concat) == s)
+				return true;
+		}
+		return false;
+	}
+
+	public bool IsBadIdCursed(long id)
+	{
 		string token = id.ToString();
 		var isBad = false;
 		var halfIndex = (token.Length / 2);

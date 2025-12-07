@@ -13,15 +13,26 @@ public class Part2Tests
 
 	[Theory]
 	[InlineData(1, false)]
-	[InlineData(12, false)]
 	[InlineData(11, true)]
+	[InlineData(111, true)]
+	[InlineData(1111, true)]
+	[InlineData(11111, true)]
+	[InlineData(111111, true)]
+	[InlineData(1111111, true)]
+	[InlineData(11111111, true)]
+	[InlineData(111111111, true)]
+	[InlineData(1111111111, true)]
+	[InlineData(8888888888, true)]
+	[InlineData(12, false)]
 	[InlineData(1188511885, true)]
 	[InlineData(123123, true)]
 	[InlineData(1112, false)]
 	[InlineData(112, false)]
-	[InlineData(111, true)]
 	[InlineData(121212, true)]
+
+	[InlineData(123123123123, true)]
 	[InlineData(12121212121212, true)]
+	[InlineData(132132132132132, true)]
 	public void IsBadIdWillReturnAnswer(long id, bool expectation)
 	{
 		// act
