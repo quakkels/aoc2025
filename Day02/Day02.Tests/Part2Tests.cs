@@ -12,6 +12,7 @@ public class Part2Tests
 	}
 
 	[Theory]
+	[InlineData(1, false)]
 	[InlineData(12, false)]
 	[InlineData(11, true)]
 	[InlineData(1188511885, true)]
