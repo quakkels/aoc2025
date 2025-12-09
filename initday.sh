@@ -27,10 +27,10 @@ dotnet sln add "$TEST_PROJECT_NAME/$TEST_PROJECT_NAME.csproj"
 dotnet add "$TEST_PROJECT_NAME/$TEST_PROJECT_NAME.csproj" \
 	reference "$CONSOLE_PROJECT_NAME/$CONSOLE_PROJECT_NAME.csproj"
 
-touch "$ROOT_DIR/part1.txt"
+touch "$ROOT_DIR/input.txt"
 touch "$ROOT_DIR/test.txt"
 
-cat > $CONSOLE_PROJECT_NAME/Program.cs << EOF
+cat > "$CONSOLE_PROJECT_NAME/Program.cs" << EOF
 namespace ${CONSOLE_PROJECT_NAME};
 
 class Program
@@ -50,3 +50,11 @@ class Program
 	}
 }
 EOF
+
+cat > "$ROOT_DIR/dotnetRun.sh" << EOF
+#!/usr/bin/env bash
+dotnet run --project Day02.Cli/Day02.Cli.csproj $1
+EOF
+
+chmod +x "$ROOT_DIR/dotnetRun.sh"
+
