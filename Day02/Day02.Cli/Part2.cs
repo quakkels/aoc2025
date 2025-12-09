@@ -15,8 +15,7 @@ public class Part2
 		ulong sum = badIds.Aggregate((a, b) => a + b);
 
 		Console.WriteLine("==========================================");
-		Console.WriteLine(string.Join(", ", badIds));
-		Console.WriteLine($"Bad Sum: {sum}");
+		Console.WriteLine($"Cursed Sum: {sum}");
 		Console.WriteLine("==========================================");
 
 		return sum;
@@ -30,6 +29,12 @@ public class Part2
 		while (current <= end)
 		{
 			var isBad = IsBadId(current);
+			var isBadCursed = IsBadIdCursed(current);
+			if (isBad != isBadCursed)
+			{
+				Console.WriteLine($"Cursed method should have returned bad: {isBad}, value: {current}");
+			}
+
 			if (isBad)
 			{
 				result.Add((ulong)current);
@@ -64,9 +69,6 @@ public class Part2
 		var isBad = false;
 		var halfIndex = (token.Length / 2);
 
-		Console.WriteLine("--------------------------------------------");
-		Console.WriteLine($"Testing id: {id}");
-
 		var pattern = new StringBuilder();
 		for (var i = 0; i < token.Length; i++)
 		{
@@ -78,12 +80,19 @@ public class Part2
 
 			if (pattern.Length + i > token.Length)
 			{
+				Console.WriteLine("Set bad false 1");
 				isBad = false;
 				break;
 			}
 			else if (pattern.ToString() == token.Substring(i, pattern.Length))
 			{
+				Console.WriteLine("Set bad true 1");
 				isBad = true;
+
+				if (i + pattern.Length == halfIndex - 1)
+				{
+					break;
+				}
 
 				var isPatternFit = (token.Length % pattern.Length) == 0;
 				if (isPatternFit)
@@ -94,11 +103,18 @@ public class Part2
 						var substringStart = j * pattern.Length;
 						if (substringStart == token.Length)
 						{
+							if (pattern.ToString() == token.Substring(substringStart, pattern.Length))
+							{
+								Console.WriteLine("Set bad true 2");
+								isBad = true;
+							}
+
 							continue;
 						}
 
 						if (pattern.ToString() != token.Substring(substringStart, pattern.Length))
 						{
+							Console.WriteLine("set bad false 2");
 							isBad = false;
 						}
 					}
@@ -108,18 +124,24 @@ public class Part2
 						break;
 					}
 				}
+				else
+				{
+					Console.WriteLine("set bad false 3");
+					isBad = false;
+					break;
+				}
 
 				i += pattern.Length -1;
 			}
 			else
 			{
+				Console.WriteLine("set bad false 4");
 				isBad = false;
 			}
 
 			pattern.Append(token[i]);
 		}
 
-		Console.WriteLine($"id: {token}, isBad: {isBad}");
 		return isBad;
 	}
 }
